@@ -1,0 +1,1269 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>Nadelle’s Valentine Menu 💜</title>
+  <meta name="theme-color" content="#b79ad8" />
+
+  <style>
+    :root{
+      --lav: #b79ad8;
+      --lav-2:#d6c6f0;
+      --pink:#ffb3d9;
+      --rose:#ff6fa8;
+      --cream:#fff7fb;
+      --ink:#2a2330;
+      --shadow: 0 20px 60px rgba(20,10,30,.18);
+      --glass: rgba(255,255,255,.55);
+      --glass2: rgba(255,255,255,.35);
+      --border: rgba(255,255,255,.6);
+      --menu-dark: rgba(20,10,30,.55);
+      --menu-dark-2: rgba(20,10,30,.35);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color:var(--ink);
+      background:
+        radial-gradient(1200px 800px at 20% 10%, rgba(255,255,255,.55), transparent 55%),
+        radial-gradient(900px 700px at 90% 20%, rgba(255,179,217,.35), transparent 60%),
+        radial-gradient(900px 700px at 50% 90%, rgba(183,154,216,.45), transparent 60%),
+        linear-gradient(135deg, #9e7fd0, #ffd2e7 55%, #ffffff);
+      overflow-x:hidden;
+    }
+
+    /* smooth page transitions */
+    .app{
+      min-height:100%;
+      display:flex;
+      align-items:stretch;
+      justify-content:center;
+      padding: clamp(16px, 3vw, 28px);
+    }
+    .frame{
+      width:min(980px, 100%);
+      position:relative;
+    }
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:20;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      justify-content:space-between;
+      padding:10px 12px;
+      margin-bottom:10px;
+      border-radius:16px;
+      background: rgba(255,255,255,.35);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,.55);
+    }
+    .topbar .left{
+      display:flex; gap:10px; align-items:center; flex-wrap:wrap;
+    }
+    .pill{
+      font-size:12px;
+      padding:6px 10px;
+      border-radius:999px;
+      background: rgba(255,255,255,.55);
+      border:1px solid rgba(255,255,255,.65);
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      user-select:none;
+    }
+    .pill strong{font-weight:700}
+    .pill button{
+      all:unset;
+      cursor:pointer;
+      font-weight:700;
+      color:#4a2a64;
+      padding:4px 8px;
+      border-radius:999px;
+      background: rgba(183,154,216,.25);
+      border: 1px solid rgba(183,154,216,.35);
+    }
+    .pill button:focus{outline:3px solid rgba(255,111,168,.35)}
+    .pill button:hover{transform: translateY(-1px)}
+    .progress{
+      font-size:12px;
+      opacity:.9;
+    }
+
+    /* screens */
+    .screen{
+      position:relative;
+      border-radius:24px;
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,.65);
+      background: rgba(255,255,255,.35);
+      backdrop-filter: blur(10px);
+      min-height: 70vh;
+    }
+
+    .screenInner{
+      padding: clamp(18px, 4vw, 34px);
+      min-height: 70vh;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+      gap: 18px;
+    }
+
+    .fadeEnter{
+      animation: fadeEnter .45s ease both;
+    }
+    @keyframes fadeEnter{
+      from{opacity:0; transform: translateY(10px) scale(.99)}
+      to{opacity:1; transform: translateY(0) scale(1)}
+    }
+
+    h1,h2,h3{margin:0}
+    .script{
+      font-family: ui-serif, Georgia, "Times New Roman", Times, serif;
+      letter-spacing: .2px;
+    }
+    .heroTitle{
+      font-size: clamp(30px, 5vw, 54px);
+      line-height:1.05;
+    }
+    .sub{
+      font-size: clamp(15px, 2.2vw, 18px);
+      opacity:.9;
+      max-width: 62ch;
+    }
+
+    .btnRow{display:flex; gap:12px; flex-wrap:wrap; align-items:center}
+    .btn{
+      border:0;
+      cursor:pointer;
+      padding: 14px 18px;
+      border-radius: 16px;
+      font-weight: 800;
+      letter-spacing:.2px;
+      color: #2b153b;
+      background: linear-gradient(135deg, rgba(255,255,255,.75), rgba(255,179,217,.45));
+      border: 1px solid rgba(255,255,255,.75);
+      box-shadow: 0 14px 30px rgba(20,10,30,.12);
+      transition: transform .15s ease, box-shadow .2s ease, filter .2s ease;
+      user-select:none;
+    }
+    .btn:hover{transform: translateY(-2px); filter:saturate(1.05)}
+    .btn:active{transform: translateY(0px)}
+    .btn:focus{outline: 3px solid rgba(255,111,168,.35)}
+    .btn.primary{
+      color:white;
+      background: linear-gradient(135deg, rgba(255,111,168,.95), rgba(183,154,216,.95));
+      border: 1px solid rgba(255,255,255,.25);
+    }
+    .btn.ghost{
+      background: rgba(255,255,255,.35);
+      border: 1px solid rgba(255,255,255,.7);
+    }
+
+    /* Confetti */
+    .confetti{
+      pointer-events:none;
+      position:absolute;
+      inset:0;
+      overflow:hidden;
+      z-index:5;
+    }
+    .confetti i{
+      position:absolute;
+      top:-10%;
+      width:10px;
+      height:14px;
+      border-radius: 2px;
+      opacity:.85;
+      transform: rotate(12deg);
+      animation: confettiFall var(--dur) linear infinite;
+      filter: drop-shadow(0 8px 10px rgba(0,0,0,.12));
+    }
+    @keyframes confettiFall{
+      to{
+        top:110%;
+        transform: translateX(var(--drift)) rotate(420deg);
+      }
+    }
+    @media (prefers-reduced-motion: reduce){
+      .fadeEnter{animation:none}
+      .confetti i{display:none}
+    }
+
+    /* Menu look */
+    .menuBg{
+      background:
+        radial-gradient(900px 600px at 50% 0%, rgba(255,255,255,.20), transparent 60%),
+        radial-gradient(900px 700px at 50% 110%, rgba(255,179,217,.16), transparent 60%),
+        linear-gradient(180deg, rgba(20,10,30,.55), rgba(20,10,30,.42));
+      position:absolute;
+      inset:0;
+      z-index:0;
+    }
+
+    .roseLeft, .roseRight{
+      position:absolute;
+      top:0; bottom:0;
+      width: clamp(56px, 12vw, 130px);
+      z-index:1;
+      opacity:.85;
+      background:
+        radial-gradient(circle at 50% 10%, rgba(255,111,168,.55), transparent 40%),
+        radial-gradient(circle at 40% 35%, rgba(255,111,168,.55), transparent 42%),
+        radial-gradient(circle at 60% 55%, rgba(255,111,168,.55), transparent 45%),
+        radial-gradient(circle at 35% 75%, rgba(255,111,168,.45), transparent 45%),
+        radial-gradient(circle at 65% 90%, rgba(255,111,168,.45), transparent 45%);
+      filter: blur(.2px);
+    }
+    .roseLeft{left:0; border-right:1px solid rgba(255,255,255,.08)}
+    .roseRight{right:0; border-left:1px solid rgba(255,255,255,.08)}
+
+    .menuStage{
+      position:relative;
+      z-index:2;
+      min-height: 70vh;
+      padding: clamp(16px, 3vw, 28px);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .tableCloth{
+      width:min(780px, 100%);
+      border-radius:22px;
+      padding: clamp(16px, 3vw, 26px);
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.06)),
+        repeating-linear-gradient(45deg, rgba(255,255,255,.06) 0 16px, rgba(183,154,216,.10) 16px 32px);
+      border: 1px solid rgba(255,255,255,.18);
+      box-shadow: 0 26px 80px rgba(0,0,0,.35);
+    }
+
+    .menuCard{
+      background: rgba(255,255,255,.78);
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.7);
+      padding: clamp(14px, 2.4vw, 20px);
+      box-shadow: 0 16px 40px rgba(0,0,0,.18);
+    }
+
+    .menuHeader{
+      text-align:center;
+      margin-bottom:14px;
+    }
+    .menuHeader h2{
+      font-size: clamp(26px, 4.2vw, 42px);
+      line-height:1.05;
+      color:#2b153b;
+    }
+    .menuHeader p{
+      margin:8px auto 0;
+      max-width: 62ch;
+      opacity:.9;
+    }
+
+    .group{
+      margin-top:16px;
+      padding-top:14px;
+      border-top:1px dashed rgba(60,30,90,.25);
+    }
+    .groupTitle{
+      font-weight:900;
+      letter-spacing:.2px;
+      margin-bottom:10px;
+      color:#3a2050;
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+    }
+    .hint{
+      font-size:12px;
+      font-weight:800;
+      padding:5px 10px;
+      border-radius:999px;
+      background: rgba(183,154,216,.18);
+      border:1px solid rgba(183,154,216,.25);
+      color:#3a2050;
+    }
+
+    .options{
+      display:grid;
+      gap:10px;
+      grid-template-columns: 1fr;
+    }
+    @media (min-width:720px){
+      .options{grid-template-columns: 1fr 1fr;}
+    }
+
+    .opt{
+      text-align:left;
+      padding:14px 14px;
+      border-radius:16px;
+      border:1px solid rgba(60,30,90,.18);
+      background: linear-gradient(180deg, rgba(255,255,255,.95), rgba(255,255,255,.72));
+      cursor:pointer;
+      transition: transform .12s ease, box-shadow .2s ease, border-color .2s ease;
+      user-select:none;
+      position:relative;
+      overflow:hidden;
+    }
+    .opt:hover{transform: translateY(-1px)}
+    .opt:focus{outline: 3px solid rgba(255,111,168,.30)}
+    .opt.selected{
+      border-color: rgba(255,111,168,.45);
+      box-shadow: 0 12px 30px rgba(255,111,168,.18);
+    }
+    .opt .num{
+      font-weight:900;
+      color:#4a2a64;
+      margin-right:8px;
+    }
+    .opt .txt{
+      font-weight:750;
+      color:#2a2330;
+      line-height:1.3;
+    }
+    .opt .check{
+      position:absolute;
+      top:10px; right:10px;
+      width:22px; height:22px;
+      border-radius:999px;
+      display:grid; place-items:center;
+      border:1px solid rgba(60,30,90,.18);
+      background: rgba(255,255,255,.75);
+      font-size:14px;
+      opacity:.0;
+      transform: scale(.9);
+      transition: opacity .15s ease, transform .15s ease;
+    }
+    .opt.selected .check{
+      opacity:1;
+      transform: scale(1);
+    }
+
+    .navRow{
+      margin-top:16px;
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      flex-wrap:wrap;
+      align-items:center;
+    }
+
+    .miniNote{
+      font-size:13px;
+      opacity:.85;
+      margin: 0;
+    }
+
+    /* Valentine question with dodging NO */
+    .valBox{
+      position:relative;
+      margin-top:6px;
+      padding: 14px;
+      border-radius:18px;
+      background: rgba(255,255,255,.45);
+      border:1px solid rgba(255,255,255,.65);
+      overflow:hidden;
+    }
+    .valRow{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:14px;
+      flex-wrap:wrap;
+      padding: 10px 0 4px;
+    }
+    .noWrap{
+      position:relative;
+      width: 140px;
+      height: 56px;
+    }
+    .noBtn{
+      position:absolute;
+      inset:0;
+      display:grid;
+      place-items:center;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.7);
+      background: rgba(255,255,255,.35);
+      font-weight:900;
+      color:#4a2a64;
+      user-select:none;
+      cursor:not-allowed;
+      transition: transform .12s ease;
+    }
+    .noBtn::after{
+      content:"(try me 😅)";
+      position:absolute;
+      bottom:-18px;
+      font-size:11px;
+      opacity:.8;
+    }
+
+    /* Results */
+    .resultsBox{
+      background: rgba(255,255,255,.55);
+      border: 1px solid rgba(255,255,255,.65);
+      border-radius:18px;
+      padding: 16px;
+    }
+    .resultsBox pre{
+      margin:0;
+      white-space:pre-wrap;
+      word-break:break-word;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    a.link{
+      color:#4a2a64;
+      font-weight:900;
+      text-decoration:none;
+      border-bottom:2px solid rgba(255,111,168,.35);
+    }
+    a.link:hover{border-bottom-color: rgba(255,111,168,.7)}
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <div class="frame">
+
+      <div class="topbar">
+        <div class="left">
+          <div class="pill"><strong>Mode:</strong> <span id="modeLabel">Preview/Test</span></div>
+          <div class="pill">
+            <span>🎵 Music</span>
+            <button id="musicToggle" type="button" aria-label="Toggle music">Off</button>
+          </div>
+        </div>
+        <div class="progress" id="progressLabel">Step 1 / 8</div>
+      </div>
+
+      <div class="screen" id="screen">
+        <!-- confetti layer -->
+        <div class="confetti" id="confetti" aria-hidden="true"></div>
+        <!-- content injected -->
+      </div>
+
+    </div>
+  </div>
+
+<script>
+/**
+ * ✅ PREVIEW/TEST MODE
+ * - Leave SEND_RESULTS = false while you test.
+ * - When you're ready later, we’ll wire EmailJS/Formspree and set true.
+ */
+const SEND_RESULTS = false;
+const RESULTS_EMAIL = "gabereall@yahoo.com";
+
+/**
+ * 🎹 Background music (free-to-use audio file on Wikimedia Commons).
+ * Using the MP3 transcode so it plays on iPhone/Android/desktop.
+ * Source page: File:Jazz Piano.ogg (CC BY 2.5).  :contentReference[oaicite:1]{index=1}
+ */
+const MUSIC_SRC_MP3 = "https://upload.wikimedia.org/wikipedia/commons/transcoded/7/75/Jazz_Piano.ogg/Jazz_Piano.ogg.mp3";
+
+const state = {
+  stepIndex: 0,
+  startedMusic: false,
+  musicOn: false,
+  answers: {
+    valentine: null,
+    breakfast_main: null,
+    breakfast_drinks: [],
+    afterBreakfast: [],
+    lunch_main: null,
+    lunch_drinks: [],
+    afterLunch: [],
+    dinner_main: null,
+    dinner_drinks: [],
+    dessert: null
+  }
+};
+
+const steps = [
+  { id:"welcome" },
+  { id:"valentine" },
+  { id:"breakfast" },
+  { id:"afterBreakfast" },
+  { id:"lunch" },
+  { id:"afterLunch" },
+  { id:"dinnerDessert" },
+  { id:"done" }
+];
+
+const $ = (sel) => document.querySelector(sel);
+
+const screenEl = $("#screen");
+const confettiEl = $("#confetti");
+const progressLabel = $("#progressLabel");
+const modeLabel = $("#modeLabel");
+const musicToggleBtn = $("#musicToggle");
+
+modeLabel.textContent = SEND_RESULTS ? "Send Mode" : "Preview/Test";
+
+// Create audio element
+const audio = new Audio(MUSIC_SRC_MP3);
+audio.loop = true;
+audio.preload = "auto";
+audio.volume = 0.22;
+
+// iOS/Android: must be started by user gesture.
+// We'll start it when she taps Start / Enter / etc.
+async function ensureMusicStarted(){
+  if (state.startedMusic) return;
+  try{
+    await audio.play();
+    audio.pause(); // we just prime it
+    state.startedMusic = true;
+  }catch(e){
+    // If priming fails, we’ll try again after next gesture.
+  }
+}
+async function setMusic(on){
+  state.musicOn = on;
+  musicToggleBtn.textContent = on ? "On" : "Off";
+  try{
+    if(on){
+      await audio.play();
+    }else{
+      audio.pause();
+    }
+  }catch(e){
+    // ignore
+  }
+}
+musicToggleBtn.addEventListener("click", async () => {
+  await ensureMusicStarted();
+  await setMusic(!state.musicOn);
+});
+
+function setProgress(){
+  progressLabel.textContent = `Step ${state.stepIndex + 1} / ${steps.length}`;
+}
+
+function clearConfetti(){
+  confettiEl.innerHTML = "";
+}
+function burstConfetti(count=45){
+  clearConfetti();
+  const colors = ["#ffffff","#ffd2e7","#ffb3d9","#b79ad8","#d6c6f0","#ff6fa8"];
+  for(let i=0;i<count;i++){
+    const p = document.createElement("i");
+    const left = Math.random()*100;
+    const size = 8 + Math.random()*10;
+    const dur = 2.8 + Math.random()*2.6;
+    const drift = (Math.random()*2-1) * 80;
+    p.style.left = left + "%";
+    p.style.width = size + "px";
+    p.style.height = (size*1.25) + "px";
+    p.style.background = colors[Math.floor(Math.random()*colors.length)];
+    p.style.setProperty("--dur", dur + "s");
+    p.style.setProperty("--drift", drift + "px");
+    p.style.animationDelay = (-Math.random()*dur) + "s";
+    confettiEl.appendChild(p);
+  }
+  // auto-clear after a bit
+  setTimeout(clearConfetti, 4000);
+}
+
+function goTo(stepId){
+  const idx = steps.findIndex(s => s.id === stepId);
+  if(idx === -1) return;
+  state.stepIndex = idx;
+  render();
+}
+
+function next(){
+  if(state.stepIndex < steps.length - 1){
+    state.stepIndex++;
+    render();
+  }
+}
+function back(){
+  if(state.stepIndex > 0){
+    state.stepIndex--;
+    render();
+  }
+}
+
+function render(){
+  setProgress();
+  screenEl.innerHTML = `
+    <div class="confetti" id="confetti" aria-hidden="true"></div>
+    <div class="screenInner fadeEnter" id="content"></div>
+  `;
+  // rebind confetti layer ref after re-render
+  const newConf = screenEl.querySelector("#confetti");
+  confettiEl.replaceWith(newConf);
+  // Update ref
+  window.__confettiRef = newConf;
+
+  const content = screenEl.querySelector("#content");
+  const id = steps[state.stepIndex].id;
+
+  if(id === "welcome") return renderWelcome(content);
+  if(id === "valentine") return renderValentine(content);
+  if(id === "breakfast") return renderMenu(content, breakfastConfig());
+  if(id === "afterBreakfast") return renderMenu(content, afterBreakfastConfig());
+  if(id === "lunch") return renderMenu(content, lunchConfig());
+  if(id === "afterLunch") return renderMenu(content, afterLunchConfig());
+  if(id === "dinnerDessert") return renderDinnerDessert(content);
+  if(id === "done") return renderDone(content);
+}
+
+function renderWelcome(el){
+  // Confetti on first load
+  burstConfetti(55);
+
+  el.innerHTML = `
+    <h1 class="script heroTitle">Happy Valentine’s Day, Nadelle 💜</h1>
+    <p class="sub">
+      Welcome to your Valentine’s Day menu — a little whimsical, a little fancy, and made with love.
+      <br><br>
+      (P.S. Everything is optimized for phone + desktop.)
+    </p>
+
+    <div class="btnRow" style="margin-top:6px;">
+      <button class="btn primary" id="enterBtn" type="button">Enter 💖</button>
+      <button class="btn ghost" id="muteHint" type="button" title="Music starts after you tap Enter">Music starts after you tap</button>
+    </div>
+
+    <p class="miniNote">
+      Enter to choose your meals for the day that will be cooked for you by your favorite person in the whole world.
+    </p>
+  `;
+
+  $("#enterBtn").addEventListener("click", async () => {
+    await ensureMusicStarted();
+    // Keep music OFF initially, but now the toggle will work reliably.
+    burstConfetti(40);
+    next();
+  });
+
+  $("#muteHint").addEventListener("click", async () => {
+    await ensureMusicStarted();
+    await setMusic(true);
+  });
+}
+
+function renderValentine(el){
+  burstConfetti(30);
+
+  el.innerHTML = `
+    <h1 class="script heroTitle">Hold up now!!!! 😤💜</h1>
+    <p class="sub"><strong>GABRIEL</strong> has a very important question to ask you…</p>
+
+    <div class="valBox">
+      <h2 class="script" style="text-align:center;font-size:clamp(22px,3.2vw,30px);margin:0 0 10px;">Will you be my Valentine?</h2>
+
+      <div class="valRow" aria-label="Valentine question choices">
+        <button class="btn primary" id="yesBtn" type="button">Yes 💘</button>
+
+        <div class="noWrap" aria-label="No button that dodges">
+          <div class="noBtn" id="noBtn" role="button" aria-disabled="true" tabindex="-1">No</div>
+        </div>
+      </div>
+
+      <p class="miniNote" style="text-align:center;margin-top:6px;">
+        (Hint: one of these is… uncooperative 😅)
+      </p>
+    </div>
+
+    <div class="btnRow" style="margin-top:10px;">
+      <button class="btn ghost" id="backBtn" type="button">← Back</button>
+    </div>
+  `;
+
+  // Dodging “No” logic (works for mouse + touch)
+  const noBtn = $("#noBtn");
+  const noWrap = noBtn.parentElement;
+
+  function dodge(){
+    // move within the wrapper but keep visible
+    const maxX = 90;
+    const maxY = 34;
+    const x = (Math.random()*2 - 1) * maxX;
+    const y = (Math.random()*2 - 1) * maxY;
+    noBtn.style.transform = `translate(${x}px, ${y}px)`;
+  }
+
+  noWrap.addEventListener("mousemove", dodge);
+  noWrap.addEventListener("pointerenter", dodge);
+  noWrap.addEventListener("touchstart", (e) => { e.preventDefault(); dodge(); }, {passive:false});
+  noWrap.addEventListener("touchmove", (e) => { e.preventDefault(); dodge(); }, {passive:false});
+
+  $("#yesBtn").addEventListener("click", async () => {
+    state.answers.valentine = "Yes";
+    burstConfetti(70);
+    await ensureMusicStarted();
+    // Turn on music once she says yes (restaurant vibe begins)
+    await setMusic(true);
+    next();
+  });
+
+  $("#backBtn").addEventListener("click", back);
+}
+
+function menuShellHTML(title, subtitle){
+  return `
+    <div class="menuBg" aria-hidden="true"></div>
+    <div class="roseLeft" aria-hidden="true"></div>
+    <div class="roseRight" aria-hidden="true"></div>
+
+    <div class="menuStage">
+      <div class="tableCloth">
+        <div class="menuCard fadeEnter">
+          <div class="menuHeader">
+            <h2 class="script">${title}</h2>
+            <p>${subtitle}</p>
+          </div>
+          <div id="menuBody"></div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderMenu(el, cfg){
+  el.classList.remove("screenInner");
+  el.innerHTML = menuShellHTML(cfg.title, cfg.subtitle);
+
+  const body = screenEl.querySelector("#menuBody");
+
+  // Build groups
+  body.innerHTML = cfg.groups.map(g => `
+    <div class="group">
+      <div class="groupTitle">
+        <span>${g.label}</span>
+        <span class="hint">${g.multi ? "Choose any" : "Choose 1"}</span>
+      </div>
+
+      <div class="options" role="list">
+        ${g.options.map((opt, i) => {
+          const selected = isSelected(cfg.key, g.key, opt.value) ? "selected" : "";
+          return `
+            <button class="opt ${selected}" type="button"
+              data-q="${cfg.key}" data-g="${g.key}" data-v="${escapeHTML(opt.value)}"
+              aria-pressed="${selected ? "true":"false"}">
+              <span class="check">✓</span>
+              <span class="txt"><span class="num">${i+1}.</span>${escapeHTML(opt.label)}</span>
+            </button>
+          `;
+        }).join("")}
+      </div>
+    </div>
+  `).join("");
+
+  // Nav controls
+  const nav = document.createElement("div");
+  nav.className = "navRow";
+  nav.innerHTML = `
+    <button class="btn ghost" id="prevBtn" type="button">← Back</button>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;align-items:center;">
+      <p class="miniNote" id="validationMsg" style="margin:0;opacity:.85;"></p>
+      <button class="btn primary" id="nextBtn" type="button">${cfg.nextLabel ?? "Next →"}</button>
+    </div>
+  `;
+  body.appendChild(nav);
+
+  // Option click logic
+  body.querySelectorAll(".opt").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const qKey = btn.dataset.q;
+      const gKey = btn.dataset.g;
+      const val = btn.dataset.v;
+
+      const group = cfg.groups.find(x => x.key === gKey);
+      if(!group) return;
+
+      toggleSelection(qKey, gKey, val, group.multi);
+
+      // re-render selections only (quick)
+      body.querySelectorAll(`.opt[data-q="${qKey}"][data-g="${gKey}"]`).forEach(b => {
+        const selected = isSelected(qKey, gKey, b.dataset.v);
+        b.classList.toggle("selected", selected);
+        b.setAttribute("aria-pressed", selected ? "true":"false");
+      });
+    });
+  });
+
+  // Next validation: require any required group to be selected
+  $("#nextBtn").addEventListener("click", () => {
+    const msg = $("#validationMsg");
+    const missing = cfg.groups.filter(g => g.required && !hasAnySelected(cfg.key, g.key));
+    if(missing.length){
+      msg.textContent = "Pick an option first 💜";
+      msg.style.opacity = "1";
+      burstConfetti(18);
+      return;
+    }
+    msg.textContent = "";
+    next();
+  });
+
+  $("#prevBtn").addEventListener("click", back);
+}
+
+function breakfastConfig(){
+  return {
+    key: "breakfast",
+    title: "Breakfast",
+    subtitle: "A cozy start — pick your breakfast + your drinks 💜",
+    nextLabel: "After breakfast →",
+    groups: [
+      {
+        key:"main",
+        label:"Breakfast Plate",
+        multi:false,
+        required:true,
+        options:[
+          { value:"Home fries w/ peppers & onions + soft scrambled eggs + turkey bacon", label:"Home fries with peppers and onions with seasoned soft scrambled eggs, turkey bacon" },
+          { value:"Over-easy fried eggs + garlic bread crostini + sage sausage", label:"Fried eggs over easy with garlic bread crostini paired with sage sausage." },
+          { value:"Pancakes w/ blueberries, strawberries & nuts + eggs + turkey bacon", label:"Pancakes with blueberries, strawberries and nuts with eggs and turkey bacon" },
+          { value:"Greek yogurt w/ caramelized banana, honey, cinnamon, blueberries & nuts + seasoned eggs + turkey bacon", label:"Caramelized banana with honey and cinnamon blueberry’s and nuts on Greek yogurt with seasoned eggs and turkey bacon." }
+        ]
+      },
+      {
+        key:"drinks",
+        label:"Drinks (choose more than one)",
+        multi:true,
+        required:false,
+        options:[
+          { value:"Orange juice", label:"Orange juice" },
+          { value:"Mimosa", label:"Mimosa" },
+          { value:"Tea", label:"Tea" },
+          { value:"Coffee", label:"Coffee" },
+          { value:"Water", label:"Water" }
+        ]
+      }
+    ]
+  };
+}
+
+function afterBreakfastConfig(){
+  return {
+    key:"afterBreakfast",
+    title:"After Breakfast",
+    subtitle:"What are we doing after we eat? (Choose any 💜)",
+    nextLabel:"Lunch time →",
+    groups:[
+      {
+        key:"activities",
+        label:"Activities",
+        multi:true,
+        required:true,
+        options:[
+          { value:"Nap", label:"Lets take a nap I’m gonna be tired" },
+          { value:"Movies/Shows", label:"Movies/Shows" },
+          { value:"Massage", label:"Massage" },
+          { value:"Snacks/Drinks", label:"Snacks/ drinks" }
+        ]
+      }
+    ]
+  };
+}
+
+function lunchConfig(){
+  return {
+    key:"lunch",
+    title:"Lunch Time",
+    subtitle:"Pick your lunch + drinks 💜",
+    nextLabel:"After lunch →",
+    groups:[
+      {
+        key:"main",
+        label:"Lunch Choice",
+        multi:false,
+        required:true,
+        options:[
+          { value:"Chicken quesadillas + salsa/green sauce/sour crème", label:"Chicken quesadillas with salsa, green sauce , sour crème" },
+          { value:"Fruit salad + honey drizzle", label:"Fruit salad with a little honey drizzle" },
+          { value:"Creamy black garlic ramen + spam + pork bao buns", label:"Creamy Black garlic ramen with spam and pork bao buns" }
+        ]
+      },
+      {
+        key:"drinks",
+        label:"Drinks (choose more than one)",
+        multi:true,
+        required:false,
+        options:[
+          { value:"Alcohol", label:"Alcohol" },
+          { value:"Juice", label:"Juice" },
+          { value:"Water", label:"Water" }
+        ]
+      }
+    ]
+  };
+}
+
+function afterLunchConfig(){
+  return {
+    key:"afterLunch",
+    title:"After Lunch",
+    subtitle:"Choose any of these (multi-select) 💜",
+    nextLabel:"Dinner & dessert →",
+    groups:[
+      {
+        key:"activities",
+        label:"Activities",
+        multi:true,
+        required:true,
+        options:[
+          { value:"Sexy time 😏😏", label:"Sexy time 😏😏" },
+          { value:"PS5 - It Takes 2", label:"Ps5 “it takes 2”" },
+          { value:"Movies/Shows continued", label:"Movie/ shows continued" },
+          { value:"Drink some more", label:"Drink some more" }
+        ]
+      }
+    ]
+  };
+}
+
+function renderDinnerDessert(el){
+  el.classList.remove("screenInner");
+  el.innerHTML = menuShellHTML("Dinner & Dessert", "Pick dinner + drinks… then dessert 💜");
+
+  const body = screenEl.querySelector("#menuBody");
+
+  body.innerHTML = `
+    <div class="group">
+      <div class="groupTitle">
+        <span>Dinner</span>
+        <span class="hint">Choose 1</span>
+      </div>
+
+      <div class="options">
+        ${[
+          { v:"Wagyu beef + cheesy garlic mash + sautéed broccolini", l:"Wagyu beef with cheesy garlic mash and sautéed broccolini" },
+          { v:"Spanish rice & beans + fried pork chops + avocado", l:"Spanish rice and beans with pork chops fried with avocado" },
+          { v:"Creamy pappardelle/spinach chive pasta + filet mignon + asparagus", l:"Creamy parpadelle or spinach chive pasta with fillet mignon and asparagus" }
+        ].map((o,i)=>optBtn("dinner","main",o.v,o.l,i)).join("")}
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="groupTitle">
+        <span>Dinner Drinks (choose more than one)</span>
+        <span class="hint">Choose any</span>
+      </div>
+
+      <div class="options">
+        ${[
+          { v:"Henny", l:"Henny" },
+          { v:"Juice", l:"Juice" },
+          { v:"Water", l:"Water" }
+        ].map((o,i)=>optBtn("dinner","drinks",o.v,o.l,i)).join("")}
+      </div>
+    </div>
+
+    <div class="group">
+      <div class="groupTitle">
+        <span>Dessert</span>
+        <span class="hint">Choose 1</span>
+      </div>
+
+      <div class="options">
+        ${[
+          { v:"Fresh homemade brownie + Cherry Garcia (make together)", l:"Fresh homemade brownie with cherry Garcia (we can make together)" },
+          { v:"Homemade guava pastry + ice cream (make together)", l:"Homemade guava pastry with ice cream (we can make together)" },
+          { v:"TikTok cinnamon rolls", l:"TikTok cinnamon rolls" }
+        ].map((o,i)=>optBtn("dessert","main",o.v,o.l,i)).join("")}
+      </div>
+    </div>
+
+    <div class="navRow">
+      <button class="btn ghost" id="prevBtn" type="button">← Back</button>
+      <div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end;align-items:center;">
+        <p class="miniNote" id="validationMsg" style="margin:0;opacity:.85;"></p>
+        <button class="btn primary" id="finishBtn" type="button">Finish 💜</button>
+      </div>
+    </div>
+  `;
+
+  // Bind option behavior
+  body.querySelectorAll(".opt").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const qKey = btn.dataset.q;
+      const gKey = btn.dataset.g;
+      const val = btn.dataset.v;
+
+      const multi = (qKey === "dinner" && gKey === "drinks");
+      const alsoMultiDessert = false;
+
+      toggleSelection(qKey, gKey, val, multi || alsoMultiDessert);
+
+      // Update selected states for that group
+      body.querySelectorAll(`.opt[data-q="${qKey}"][data-g="${gKey}"]`).forEach(b => {
+        const selected = isSelected(qKey, gKey, b.dataset.v);
+        b.classList.toggle("selected", selected);
+        b.setAttribute("aria-pressed", selected ? "true":"false");
+      });
+
+      // If single-select, clear other selections visuals immediately
+      if(!multi){
+        body.querySelectorAll(`.opt[data-q="${qKey}"][data-g="${gKey}"]`).forEach(b => {
+          const selected = isSelected(qKey, gKey, b.dataset.v);
+          b.classList.toggle("selected", selected);
+        });
+      }
+    });
+  });
+
+  $("#prevBtn").addEventListener("click", back);
+
+  $("#finishBtn").addEventListener("click", () => {
+    const msg = $("#validationMsg");
+
+    const dinnerChosen = hasAnySelected("dinner","main");
+    const dessertChosen = hasAnySelected("dessert","main");
+
+    if(!dinnerChosen || !dessertChosen){
+      msg.textContent = "Pick dinner + dessert first 💜";
+      burstConfetti(18);
+      return;
+    }
+    msg.textContent = "";
+    next();
+  });
+}
+
+function renderDone(el){
+  burstConfetti(65);
+
+  // Build summary
+  const summary = buildSummaryText();
+
+  el.innerHTML = `
+    <h1 class="script heroTitle">Thank you for choosing me, babe 💜</h1>
+    <p class="sub">I hope you enjoy your day. Happy Valentine’s Day.</p>
+
+    <div class="resultsBox" style="margin-top:8px;">
+      <h3 class="script" style="margin:0 0 10px;font-size:22px;">Your Choices (Preview/Test)</h3>
+      <pre id="summaryPre"></pre>
+
+      <div class="btnRow" style="margin-top:12px;">
+        <button class="btn primary" id="copyBtn" type="button">Copy results</button>
+        <a class="btn ghost" id="mailtoBtn" href="#" role="button">Send to Gabriel (email)</a>
+      </div>
+
+      <p class="miniNote" style="margin-top:10px;">
+        Right now this is in <strong>Preview/Test Mode</strong> (nothing auto-sends). When you approve it,
+        we’ll wire up real sending to <strong>${RESULTS_EMAIL}</strong>.
+      </p>
+    </div>
+
+    <div class="btnRow" style="margin-top:14px;">
+      <button class="btn ghost" id="restartBtn" type="button">Restart</button>
+      <button class="btn ghost" id="musicOffBtn" type="button">Music Off</button>
+    </div>
+
+    <p class="miniNote" style="margin-top:8px;">
+      Music attribution: “Jazz Piano” (Serolillo), CC BY 2.5, via Wikimedia Commons. :contentReference[oaicite:2]{index=2}
+    </p>
+  `;
+
+  $("#summaryPre").textContent = summary;
+
+  $("#copyBtn").addEventListener("click", async () => {
+    try{
+      await navigator.clipboard.writeText(summary);
+      burstConfetti(25);
+      $("#copyBtn").textContent = "Copied ✅";
+      setTimeout(()=>$("#copyBtn").textContent="Copy results", 1400);
+    }catch(e){
+      alert("Copy didn’t work here — you can manually select the text and copy it.");
+    }
+  });
+
+  const subject = encodeURIComponent("Nadelle’s Valentine Menu Results 💜");
+  const body = encodeURIComponent(summary);
+  $("#mailtoBtn").href = `mailto:${RESULTS_EMAIL}?subject=${subject}&body=${body}`;
+
+  $("#restartBtn").addEventListener("click", () => {
+    // reset answers
+    state.stepIndex = 0;
+    state.answers = {
+      valentine: null,
+      breakfast_main: null,
+      breakfast_drinks: [],
+      afterBreakfast: [],
+      lunch_main: null,
+      lunch_drinks: [],
+      afterLunch: [],
+      dinner_main: null,
+      dinner_drinks: [],
+      dessert: null
+    };
+    render();
+  });
+
+  $("#musicOffBtn").addEventListener("click", async () => {
+    await setMusic(false);
+  });
+
+  // (Optional future) Auto-send results if enabled
+  if(SEND_RESULTS){
+    // We'll wire this later with EmailJS/Formspree (requires public key / endpoint).
+    // For now, keeping it safe and testable.
+  }
+}
+
+/* ----- Selection model ----- */
+
+function toggleSelection(qKey, gKey, val, multi){
+  // Map to state.answers keys
+  if(qKey === "breakfast" && gKey === "main"){
+    state.answers.breakfast_main = val;
+    return;
+  }
+  if(qKey === "breakfast" && gKey === "drinks"){
+    return toggleArray(state.answers.breakfast_drinks, val, multi);
+  }
+  if(qKey === "afterBreakfast" && gKey === "activities"){
+    return toggleArray(state.answers.afterBreakfast, val, true);
+  }
+
+  if(qKey === "lunch" && gKey === "main"){
+    state.answers.lunch_main = val;
+    return;
+  }
+  if(qKey === "lunch" && gKey === "drinks"){
+    return toggleArray(state.answers.lunch_drinks, val, true);
+  }
+
+  if(qKey === "afterLunch" && gKey === "activities"){
+    return toggleArray(state.answers.afterLunch, val, true);
+  }
+
+  if(qKey === "dinner" && gKey === "main"){
+    state.answers.dinner_main = val;
+    return;
+  }
+  if(qKey === "dinner" && gKey === "drinks"){
+    return toggleArray(state.answers.dinner_drinks, val, true);
+  }
+
+  if(qKey === "dessert" && gKey === "main"){
+    state.answers.dessert = val;
+    return;
+  }
+}
+
+function toggleArray(arr, val, multi){
+  const idx = arr.indexOf(val);
+  if(idx >= 0){
+    arr.splice(idx, 1);
+    return;
+  }
+  if(!multi){
+    arr.length = 0;
+  }
+  arr.push(val);
+}
+
+function isSelected(qKey, gKey, val){
+  if(qKey === "breakfast" && gKey === "main") return state.answers.breakfast_main === val;
+  if(qKey === "breakfast" && gKey === "drinks") return state.answers.breakfast_drinks.includes(val);
+  if(qKey === "afterBreakfast" && gKey === "activities") return state.answers.afterBreakfast.includes(val);
+
+  if(qKey === "lunch" && gKey === "main") return state.answers.lunch_main === val;
+  if(qKey === "lunch" && gKey === "drinks") return state.answers.lunch_drinks.includes(val);
+
+  if(qKey === "afterLunch" && gKey === "activities") return state.answers.afterLunch.includes(val);
+
+  if(qKey === "dinner" && gKey === "main") return state.answers.dinner_main === val;
+  if(qKey === "dinner" && gKey === "drinks") return state.answers.dinner_drinks.includes(val);
+
+  if(qKey === "dessert" && gKey === "main") return state.answers.dessert === val;
+
+  return false;
+}
+
+function hasAnySelected(qKey, gKey){
+  if(qKey === "breakfast" && gKey === "main") return !!state.answers.breakfast_main;
+  if(qKey === "afterBreakfast" && gKey === "activities") return state.answers.afterBreakfast.length > 0;
+
+  if(qKey === "lunch" && gKey === "main") return !!state.answers.lunch_main;
+
+  if(qKey === "afterLunch" && gKey === "activities") return state.answers.afterLunch.length > 0;
+
+  if(qKey === "dinner" && gKey === "main") return !!state.answers.dinner_main;
+  if(qKey === "dessert" && gKey === "main") return !!state.answers.dessert;
+
+  // drinks groups not required
+  return true;
+}
+
+function optBtn(qKey, gKey, v, l, i){
+  const selected = isSelected(qKey,gKey,v) ? "selected" : "";
+  return `
+    <button class="opt ${selected}" type="button"
+      data-q="${qKey}" data-g="${gKey}" data-v="${escapeHTML(v)}"
+      aria-pressed="${selected ? "true":"false"}">
+      <span class="check">✓</span>
+      <span class="txt"><span class="num">${i+1}.</span>${escapeHTML(l)}</span>
+    </button>
+  `;
+}
+
+function buildSummaryText(){
+  const a = state.answers;
+  const lines = [];
+  lines.push("💜 Nadelle’s Valentine Menu Results");
+  lines.push("");
+  lines.push(`Valentine: ${a.valentine ?? "—"}`);
+  lines.push("");
+  lines.push("🍳 Breakfast:");
+  lines.push(`• Main: ${a.breakfast_main ?? "—"}`);
+  lines.push(`• Drinks: ${a.breakfast_drinks.length ? a.breakfast_drinks.join(", ") : "—"}`);
+  lines.push("");
+  lines.push("✨ After Breakfast:");
+  lines.push(`• Activities: ${a.afterBreakfast.length ? a.afterBreakfast.join(", ") : "—"}`);
+  lines.push("");
+  lines.push("🥗 Lunch:");
+  lines.push(`• Main: ${a.lunch_main ?? "—"}`);
+  lines.push(`• Drinks: ${a.lunch_drinks.length ? a.lunch_drinks.join(", ") : "—"}`);
+  lines.push("");
+  lines.push("🎮 After Lunch:");
+  lines.push(`• Activities: ${a.afterLunch.length ? a.afterLunch.join(", ") : "—"}`);
+  lines.push("");
+  lines.push("🍽️ Dinner:");
+  lines.push(`• Main: ${a.dinner_main ?? "—"}`);
+  lines.push(`• Drinks: ${a.dinner_drinks.length ? a.dinner_drinks.join(", ") : "—"}`);
+  lines.push("");
+  lines.push("🍰 Dessert:");
+  lines.push(`• Choice: ${a.dessert ?? "—"}`);
+  lines.push("");
+  lines.push("—");
+  lines.push("Made with love by Gabriel 💘");
+  return lines.join("\n");
+}
+
+// basic escape for injected strings
+function escapeHTML(str){
+  return String(str)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+// Initialize
+render();
+</script>
+</body>
+</html>
